@@ -1,6 +1,6 @@
 :root {
     --track-width: 90vw; 
-    --racer-size: 40px; /* REDUCIDO: De 50px a 40px para más espacio */
+    --racer-size: 35px; /* Más pequeño para móviles */
     --finish-line-width: 80px;
     --background-color: #f0f0f8;
     --player-color: #3b82f6; 
@@ -8,17 +8,29 @@
     --ia-color-2: #ef4444; 
     --ia-color-3: #f59e0b; 
     --ia-color-4: #a855f7; 
-    --control-height: 70px; /* REDUCIDO: De 90px a 70px para dar más espacio vertical */
+    --control-height: 60px; /* Altura de la barra de control fija */
+    --header-height: 50px; /* Altura estimada de los títulos y texto de ayuda */
 }
 
 body {
     font-family: Arial, sans-serif;
     background-color: var(--background-color);
     margin: 0;
-    padding: 20px;
+    padding: 10px; /* Reducimos el padding superior */
     text-align: center;
-    /* Ajuste clave: Usamos la nueva altura reducida del control */
-    padding-bottom: var(--control-height); 
+    /* CLAVE: Espacio inferior para evitar que el botón fijo tape la pista */
+    padding-bottom: calc(var(--control-height) + 10px); 
+}
+
+h1 {
+    font-size: 1.5em; /* Reducimos el tamaño del título */
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+p {
+    font-size: 0.9em; /* Reducimos el tamaño del texto de ayuda */
+    margin-top: 5px;
+    margin-bottom: 15px;
 }
 
 .hidden {
@@ -75,7 +87,12 @@ body {
 
 #game-screen {
     position: relative;
-    padding: 20px 0;
+    padding: 0;
+    /* CLAVE: Altura dinámica que utiliza casi todo el espacio vertical disponible (vh) */
+    /* Calculamos 95% de la ventana menos el espacio del header (50px) y el footer (60px) */
+    height: calc(95vh - var(--control-height) - var(--header-height)); 
+    min-height: 300px; /* Altura mínima para computadoras */
+    margin-bottom: 10px;
 }
 
 #race-track {
@@ -84,17 +101,18 @@ body {
     border: 5px dashed #aaa;
     border-radius: 10px;
     background-color: #eee;
-    padding: 10px 0; /* REDUCIDO: Padding de la pista */
+    padding: 10px 0; 
     position: relative;
+    /* Hacemos que la pista ocupe toda la altura del contenedor de juego */
+    height: calc(100% - 20px); 
 }
 
 #finish-line {
     position: absolute;
-    top: 30px; /* Ajustado */
-    /* Asegura que la línea de meta esté al final de la pista */
+    top: 10px; 
     right: calc(50% - (var(--track-width) / 2) + 20px); 
     width: var(--finish-line-width);
-    height: calc(100% - 20px); /* Ajustado */
+    height: calc(100% - 20px); 
     background-color: #333;
     z-index: 1;
     transform: translateX(100%);
@@ -104,8 +122,8 @@ body {
 }
 
 #baby-img {
-    width: 60px;
-    height: 60px;
+    width: 50px; 
+    height: 50px; 
     border-radius: 50%;
     background-color: white;
     padding: 5px;
@@ -116,7 +134,7 @@ body {
 .racer {
     display: flex;
     align-items: center;
-    margin: 5px 0; /* REDUCIDO: Margen vertical */
+    margin: 0; /* Eliminamos el margen para compactar más */
     position: relative;
     transition: top 0.1s; 
 }
@@ -138,19 +156,18 @@ body {
     object-fit: cover;
 }
 
-/* Clase para rotar la imagen de la cara (efecto de mirar a un lado) */
 .mirando-izquierda {
     transform: scaleX(-1);
 }
 
 .mamadera-icon {
-    width: 12px; /* REDUCIDO */
-    height: 25px; /* REDUCIDO */
+    width: 12px; 
+    height: 25px; 
     background-color: white;
     border: 2px solid orange;
     border-radius: 0 8px 8px 0;
     position: absolute;
-    right: -8px; /* Ajustado */
+    right: -8px; 
     top: 50%;
     transform: translateY(-50%);
     z-index: 10;
@@ -158,14 +175,13 @@ body {
 
 .racer-name {
     position: absolute;
-    top: -15px;
+    top: -10px; /* Ajustado para el ícono más pequeño */
     left: 0;
-    font-size: 0.8em;
+    font-size: 0.7em; /* Reducido para ahorrar espacio */
     color: #333;
     width: max-content;
 }
 
-/* Colores de fondo de respaldo para la IA (si las imágenes fallan) */
 .ia-racer:nth-child(1) .racer-icon { background-color: var(--ia-color-1); }
 .ia-racer:nth-child(2) .racer-icon { background-color: var(--ia-color-2); }
 .ia-racer:nth-child(3) .racer-icon { background-color: var(--ia-color-3); }
@@ -189,11 +205,11 @@ body {
 
 #run-button {
     width: 90%;
-    height: 50px; /* REDUCIDO */
+    height: 40px; 
     background-color: #007bff;
     color: white;
     border: none;
-    font-size: 1.3em; /* REDUCIDO */
+    font-size: 1.1em; 
     font-weight: bold;
     border-radius: 10px;
     cursor: pointer;

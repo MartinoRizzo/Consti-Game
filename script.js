@@ -64,7 +64,7 @@ function renderRacers() {
         const racerElement = document.createElement('div');
         racerElement.className = `racer ${racer.isPlayer ? 'player-racer' : 'ia-racer'}`;
         racerElement.setAttribute('data-id', racer.id);
-        racerElement.style.top = `${racer.index * 45}px`; // Espaciado vertical
+        racerElement.style.top = `${racer.index * 35}px`; // Espaciado vertical
 
         // Calcular la posición horizontal
         const positionX = (racer.position / TRACK_LENGTH) * trackWidth;
@@ -159,7 +159,7 @@ function updateGame() {
     racersData.filter(r => !r.isPlayer).forEach(racer => {
         // Velocidad de la IA (Ajustado para que sea un buen reto)
         // Se mueve entre 1.0 y 3.5 por tick
-        const speed = Math.random() * (2.5 - 1.0) + 1.0; 
+        const speed = Math.random() * (2.0 - 0.5) + 1.0; 
         racer.position += speed;
     });
 
