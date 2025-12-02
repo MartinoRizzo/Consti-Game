@@ -1,0 +1,229 @@
+:root {
+    --track-width: 90vw; /* Ancho del circuito */
+    --racer-size: 50px; /* Tamaño del personaje */
+    --finish-line-width: 80px;
+    --background-color: #f0f0f8;
+    --player-color: #3b82f6; /* Azul */
+    --ia-color-1: #10b981; /* Verde */
+    --ia-color-2: #ef4444; /* Rojo */
+    --ia-color-3: #f59e0b; /* Amarillo */
+    --ia-color-4: #a855f7; /* Púrpura */
+    --control-height: 90px; /* Altura del área de control fija */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+    /* Ajuste clave: Añadir padding inferior para que el botón fijo no oculte la pista */
+    padding-bottom: var(--control-height); 
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* --- SECCIÓN DE SELECCIÓN --- */
+
+#character-selector {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap; 
+    margin-bottom: 30px;
+}
+
+.char-card {
+    border: 3px solid transparent;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background-color: white;
+}
+
+.char-card.selected {
+    border-color: #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
+.char-card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 5px;
+}
+
+#start-button {
+    padding: 15px 30px;
+    font-size: 1.2em;
+    background-color: #22c55e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+#start-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* --- PISTA DE CARRERAS (GAME SCREEN) --- */
+
+#game-screen {
+    position: relative;
+    padding: 20px 0;
+}
+
+#race-track {
+    width: var(--track-width);
+    margin: 0 auto;
+    border: 5px dashed #aaa;
+    border-radius: 10px;
+    background-color: #eee;
+    padding: 20px 0;
+    position: relative;
+}
+
+#finish-line {
+    position: absolute;
+    top: 50px;
+    /* Asegura que la línea de meta esté al final de la pista */
+    right: calc(50% - (var(--track-width) / 2) + 20px); 
+    width: var(--finish-line-width);
+    height: calc(100% - 40px);
+    background-color: #333;
+    z-index: 1;
+    transform: translateX(100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#baby-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: white;
+    padding: 5px;
+    border: 3px solid gold;
+    object-fit: cover;
+}
+
+.racer {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    position: relative;
+    transition: top 0.1s; 
+}
+
+.racer-icon {
+    width: var(--racer-size);
+    height: var(--racer-size);
+    border-radius: 50%;
+    background-color: var(--player-color); 
+    position: absolute;
+    left: 0;
+    transition: transform 0.1s linear; 
+}
+
+.racer-icon img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Clase para rotar la imagen de la cara (efecto de mirar a un lado) */
+.mirando-izquierda {
+    transform: scaleX(-1);
+}
+
+.mamadera-icon {
+    width: 15px;
+    height: 30px;
+    background-color: white;
+    border: 2px solid orange;
+    border-radius: 0 10px 10px 0;
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.racer-name {
+    position: absolute;
+    top: -15px;
+    left: 0;
+    font-size: 0.8em;
+    color: #333;
+    width: max-content;
+}
+
+/* Colores de fondo de respaldo para la IA (si las imágenes fallan) */
+.ia-racer:nth-child(1) .racer-icon { background-color: var(--ia-color-1); }
+.ia-racer:nth-child(2) .racer-icon { background-color: var(--ia-color-2); }
+.ia-racer:nth-child(3) .racer-icon { background-color: var(--ia-color-3); }
+.ia-racer:nth-child(4) .racer-icon { background-color: var(--ia-color-4); }
+
+/* --- CONTROLES (MODIFICADO) --- */
+
+#controls {
+    /* Lo fijamos en la parte inferior para que no se superponga con la pista */
+    position: fixed; 
+    bottom: 0;       
+    left: 0;
+    width: 100%;     
+    height: var(--control-height);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background-color); 
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 100; 
+    margin-top: 0; /* Eliminamos el margen superior que estaba causando problemas */
+}
+
+#run-button {
+    width: 90%;
+    height: 60px; /* Tamaño ajustado para móvil */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    font-size: 1.5em;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #0056b3;
+    transition: all 0.1s;
+}
+
+#run-button:active {
+    box-shadow: none;
+    transform: translateY(4px);
+}
+
+/* --- RESULTADOS --- */
+
+#result-screen {
+    padding: 50px 20px;
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+#restart-button {
+    padding: 10px 20px;
+    font-size: 1.1em;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

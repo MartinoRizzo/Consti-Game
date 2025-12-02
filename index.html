@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👶 Carrera de la Mema🍼</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>🍼 Carrera de la Mema 👶</h1>
+        <p>¡Corre para darle la mema a Consti! Toca la pantalla para avanzar.</p>
+    </header>
+
+    <section id="selection-screen">
+        <h2>Elige a tu Tio/a</h2>
+        <div id="character-selector">
+            </div>
+        <button id="start-button" disabled>¡Empezar a Correr!</button>
+    </section>
+
+    <section id="game-screen" class="hidden">
+        <div id="finish-line">
+            <img id="baby-img" src="images/baby-face.png" alt="Cara del Bebé en la Meta">
+        </div>
+        
+        <div id="race-track">
+            </div>
+
+        <div id="controls">
+            <button id="run-button">TOCA PARA CORRER</button>
+        </div>
+    </section>
+
+    <section id="result-screen" class="hidden">
+        <h2 id="result-message"></h2>
+        <button id="restart-button">Jugar de Nuevo</button>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
