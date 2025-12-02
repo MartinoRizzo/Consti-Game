@@ -159,7 +159,7 @@ function updateGame() {
     racersData.filter(r => !r.isPlayer).forEach(racer => {
         // Velocidad de la IA (Ajustado para que sea un buen reto)
         // Se mueve entre 1.0 y 3.5 por tick
-        const speed = Math.random() * (3.0 - 2.0) + 2.0; 
+        const speed = Math.random() * (3.0 - 2.0) + 1.7; 
         racer.position += speed;
     });
 
